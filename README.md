@@ -85,3 +85,10 @@ Backup Notes: {{cluster}}, {{guestname}}, {{node}}, {{vmid}}
 
 #### Advanced
 I didn't change anything here
+
+## Issues I fixed
+
+### failed to start zfs-import-scan.service error at boot
+
+Because TrueNAS has disks passed through directly to it the PVE Node seems to have been getting confused and the import scan service would fail to start at boot.
+`systemctl disable --now zfs-import-scan.service`
