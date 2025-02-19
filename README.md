@@ -1,6 +1,9 @@
 # proxmox-setup
 The steps I took to setup my proxmox cluster
 
+Helpful scripts for reference: https://github.com/kneutron/ansitest/tree/master/proxmox
+Helpful scripts for setting up services: https://github.com/community-scripts/ProxmoxVE
+
 ## Node Configurations
 
 ### Enable VLAN awareness on networking bridge
