@@ -24,6 +24,9 @@ Generally I followed this guide: https://technotim.live/posts/proxmox-alerts/
 
 I did not bother to override the header for sent emails. Proxmox seems to have improved how the header is set since that guide/video.
 
+## Host Backups
+Instructions on automatically taking backups of host configurations was detailed in `host_recovery.md`
+
 ## Datacenter Configurations
 
 ### Connect SMB drive for backups, etc
