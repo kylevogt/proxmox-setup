@@ -1,7 +1,43 @@
 ## Create Backup of important files to PBS
 
+Manually create a one off backup of the proxmox host:
 ```
 proxmox-backup-client backup host-configs.pxar:/etc/pve network-config.pxar:/etc/network --backup-id pve-host-configs --repository pve-nodes@pbs@192.168.1.171:backups
+```
+
+### Configuring automated backups
+
+Create `/root/backup-proxmox-configs.sh` and fill in the password
+
+```
+#!/bin/bash
+#
+# Proxmox Host Config Backup Script
+
+export PBS_REPOSITORY=pve-nodes@pbs@192.168.1.171:backups
+export PBS_PASSWORD=''
+
+DATE=$(date +%F)
+
+proxmox-backup-client backup \
+  host-configs.pxar:/etc/pve \
+  network-config.pxar:/etc/network \
+  --backup-id pve-host-configs
+```
+
+Make that shit executable
+```
+chmod +x /root/backup-proxmox-configs.sh
+```
+
+Open up crontab
+```
+crontab -e
+```
+
+Add line to the crontab
+```
+0 2 * * * /root/backup-proxmox-configs.sh >> /var/log/proxmox-config-backup.log 2>&1
 ```
 
 ## Restore cirtical files from PBS
