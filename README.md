@@ -11,7 +11,7 @@ Helpful scripts for setting up services: https://github.com/community-scripts/Pr
 Networking > vmbr0 > VLAN Aware: Yes
 
 ### Post Install Setup Script
-https://tteck.github.io/Proxmox/#proxmox-ve-post-install
+https://community-scripts.github.io/ProxmoxVE/scripts?id=post-pve-install
 
 The most important bit of this is to disable the enterprise repository and add the no-subscription repository.
 
@@ -23,6 +23,29 @@ Updates > Repositories
 Generally I followed this guide: https://technotim.live/posts/proxmox-alerts/
 
 I did not bother to override the header for sent emails. Proxmox seems to have improved how the header is set since that guide/video.
+
+```
+apt update
+apt install -y libsasl2-modules mailutils
+echo "smtp.gmail.com kvserverusage@gmail.com:{{INSERT_PASSWORD}}" > /etc/postfix/sasl_passwd
+chmod 600 /etc/postfix/sasl_passwd
+postmap hash:/etc/postfix/sasl_passwd
+nano /etc/postfix/main.cf
+
+# google mail configuration
+
+relayhost = smtp.gmail.com:587
+smtp_use_tls = yes
+smtp_sasl_auth_enable = yes
+smtp_sasl_security_options =
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_tls_CAfile = /etc/ssl/certs/Entrust_Root_Certification_Authority.pem
+smtp_tls_session_cache_database = btree:/var/lib/postfix/smtp_tls_session_cache
+smtp_tls_session_cache_timeout = 3600s
+
+postfix reload
+echo "This is a test message sent from postfix on my Proxmox Server" | mail -s "Test Email from Proxmox" your-email@gmail.com
+```
 
 ## Host Backups
 Instructions on automatically taking backups of host configurations was detailed in `host_recovery.md`
