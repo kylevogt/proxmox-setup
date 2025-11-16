@@ -35,9 +35,9 @@ Open up crontab
 crontab -e
 ```
 
-Add line to the crontab
+Add line to the crontab (this will run every hour on the 12th minute)
 ```
-0 2 * * * /root/backup-proxmox-configs.sh >> /var/log/proxmox-config-backup.log 2>&1
+12 * * * * /root/backup-proxmox-configs.sh >> /var/log/proxmox-config-backup.log 2>&1
 ```
 
 ## Restore cirtical files from PBS
