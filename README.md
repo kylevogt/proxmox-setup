@@ -52,6 +52,20 @@ Instructions on automatically taking backups of host configurations was detailed
 
 ## Datacenter Configurations
 
+### Connect PBS (Proxmox Backup Server) to be able to restore backups
+Data Center > Storage > Add Proxmox Backup Server
+
+```
+ID: pbs
+Server: 192.168.1.171
+Username: pve-nodes@pbs
+Password: bitwarden
+Datastore: backups
+
+Namespace: empty
+Fingerprint: You can get this by navigating to PBS, opening the datastore, then hitting "Show Connection Information"
+```
+
 ### Connect SMB drive for backups, etc
 Storage > Add SMB/CIFS
 
